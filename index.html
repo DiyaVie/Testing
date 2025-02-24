@@ -18,10 +18,11 @@
       min-height: 100vh;
       background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
       color: #333;
+      transition: background 0.8s ease-in-out;
       padding: 20px;
-      transition: background 1s ease-in-out;
     }
     .container {
+      position: relative;
       width: 90%;
       max-width: 600px;
       text-align: center;
@@ -31,7 +32,8 @@
       padding: 24px 20px;
       border-radius: 16px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      margin-bottom: 16px;
+      backdrop-filter: blur(5px);
+      transition: transform 0.4s ease;
       position: relative;
     }
     .quote {
@@ -40,9 +42,9 @@
       margin-bottom: 20px;
       line-height: 1.6;
       opacity: 0;
-      animation: fadeIn 0.8s forwards;
+      animation: fadeIn 0.6s forwards;
     }
-    .image {
+    .quote-image {
       width: 100%;
       height: 250px;
       object-fit: cover;
@@ -59,72 +61,79 @@
       color: #fff;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      margin-top: 10px;
     }
     button:hover { background-color: #0056b3; }
-    
-    .footer {
-      font-size: 0.9rem;
-      margin-top: 16px;
-      font-weight: 500;
-      color: #444;
-    }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    .powered {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #555;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="card">
-      <img src="" alt="Motivation Image" class="image" id="quoteImage" />
+      <img id="quoteImage" class="quote-image" src="" alt="Motivational Image">
       <div class="quote" id="quote">Loading motivation...</div>
       <button onclick="generateQuote()">Refresh Motivation</button>
     </div>
-    <div class="footer">Powered by DIYAVie</div>
+    <div class="powered">Powered by DIYAVie</div>
   </div>
 
   <script>
     const quotes = [
-      { text: "Dear DIYA Woman, you didn’t come this far to stop now.", image: "https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg" },
-      { text: "Some days will test you. Things might not go as planned, but remember why you started.", image: "https://images.pexels.com/photos/898243/pexels-photo-898243.jpeg" },
-      { text: "Repeat after me: I am capable. I am worthy. I am enough.", image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg" },
-      { text: "Comparison steals joy. Focus on your journey, and embrace every step.", image: "https://images.pexels.com/photos/1574843/pexels-photo-1574843.jpeg" },
-      { text: "Dear DIYA Woman, it’s okay to rest. Rest is part of the journey, not a detour.", image: "https://images.pexels.com/photos/4050291/pexels-photo-4050291.jpeg" },
-      { text: "Shatter those ceilings, sis. Your potential is limitless.", image: "https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg" },
-      { text: "That idea you’ve been sitting on? Start. The world needs your brilliance.", image: "https://images.pexels.com/photos/1974525/pexels-photo-1974525.jpeg" },
-      { text: "Celebrate the silent wins. Progress isn’t always loud.", image: "https://images.pexels.com/photos/1642226/pexels-photo-1642226.jpeg" },
-      { text: "Dear DIYA Woman, surround yourself with those who remind you of your power.", image: "https://images.pexels.com/photos/3184419/pexels-photo-3184419.jpeg" },
-      { text: "Your future self is watching, grateful you didn’t give up.", image: "https://images.pexels.com/photos/556668/pexels-photo-556668.jpeg" }
-      // Add remaining quotes here with corresponding image URLs from Pexels.
+      { text: "Dear DIYA Woman, you didn’t come this far to stop now. Every step you've taken has prepared you for the challenges and victories ahead. Keep walking, your journey is unfolding beautifully.", image: "https://images.pexels.com/photos/3755761/pexels-photo-3755761.jpeg" },
+      { text: "Some days will test you. Things might not go as planned, but remember, storms don't last forever. Find your calm in the chaos and trust your resilience.", image: "https://images.pexels.com/photos/2266367/pexels-photo-2266367.jpeg" },
+      { text: "Repeat after me: I am capable. I am worthy. I carry within me the strength to overcome and the grace to rise again.", image: "https://images.pexels.com/photos/4527388/pexels-photo-4527388.jpeg" },
+      { text: "Comparison steals joy. Your journey is yours alone, and what’s meant for you will never pass you by. Embrace your path.", image: "https://images.pexels.com/photos/3812723/pexels-photo-3812723.jpeg" },
+      { text: "Dear DIYA Woman, it’s okay to rest. Pausing doesn’t mean you’re quitting; it means you’re nurturing your strength for what’s next.", image: "https://images.pexels.com/photos/4050284/pexels-photo-4050284.jpeg" },
+      { text: "Shatter those ceilings, sis. The world is waiting for the boldness that only you can bring.", image: "https://images.pexels.com/photos/2343468/pexels-photo-2343468.jpeg" },
+      { text: "That idea you’ve been sitting on? Start. Even the smallest step forward is progress.", image: "https://images.pexels.com/photos/6208086/pexels-photo-6208086.jpeg" },
+      { text: "Celebrate the silent wins—the mornings you got up despite the weight, the times you chose yourself, the moments you persevered quietly.", image: "https://images.pexels.com/photos/3727451/pexels-photo-3727451.jpeg" },
+      { text: "Dear DIYA Woman, surround yourself with those who remind you of your power, who speak life into your dreams, and hold your vision with you.", image: "https://images.pexels.com/photos/3755706/pexels-photo-3755706.jpeg" },
+      { text: "Your future self is watching, grateful you didn’t give up. Keep going, she’s counting on you.", image: "https://images.pexels.com/photos/3984873/pexels-photo-3984873.jpeg" },
+      // 50 more quotes with images fitting the themes will be added here...
+      { text: "Dear DIYA Woman, you have the audacity to dream, now have the courage to act. Every bold move you make is rewriting the narrative.", image: "https://images.pexels.com/photos/5698869/pexels-photo-5698869.jpeg" },
+      { text: "Being intentional means choosing yourself daily, even when it's hard. Show up for you—the world benefits from your light.", image: "https://images.pexels.com/photos/2306299/pexels-photo-2306299.jpeg" },
+      { text: "Yielding isn't weakness; it's wisdom. Let go of what weighs you down to rise higher.", image: "https://images.pexels.com/photos/4327222/pexels-photo-4327222.jpeg" },
+      { text: "Dear DIYA Woman, dare to stand out. The comfort zone is cozy but nothing grows there.", image: "https://images.pexels.com/photos/3228724/pexels-photo-3228724.jpeg" },
+      { text: "Audacity is believing in your vision when no one else sees it. Keep believing. Keep building.", image: "https://images.pexels.com/photos/4649618/pexels-photo-4649618.jpeg" }
     ];
 
-    const gradients = [
+    const backgrounds = [
       "linear-gradient(135deg, #FFDEE9, #B5FFFC)",
-      "linear-gradient(135deg, #FECFEF, #C2FFD8)",
-      "linear-gradient(135deg, #D4FC79, #96E6A1)",
-      "linear-gradient(135deg, #FBC2EB, #A6C1EE)",
-      "linear-gradient(135deg, #FFF1EB, #ACE0F9)",
-      "linear-gradient(135deg, #FF9A9E, #FAD0C4)",
-      "linear-gradient(135deg, #C1DFE8, #DEECDD)"
+      "linear-gradient(135deg, #C1FF72, #FDCB82)",
+      "linear-gradient(135deg, #A18CD1, #FBC2EB)",
+      "linear-gradient(135deg, #FEE140, #FA709A)",
+      "linear-gradient(135deg, #89F7FE, #66A6FF)"
     ];
 
     function generateQuote() {
       const quoteElement = document.getElementById('quote');
       const imageElement = document.getElementById('quoteImage');
-      
-      const randomIndex = Math.floor(Math.random() * quotes.length);
-      const randomGradient = gradients[Math.floor(Math.random() * gradients.length)];
+      document.body.style.background = backgrounds[Math.floor(Math.random() * backgrounds.length)];
 
       quoteElement.style.opacity = '0';
-      
+      imageElement.style.opacity = '0';
+
       setTimeout(() => {
-        quoteElement.innerText = quotes[randomIndex].text;
-        imageElement.src = quotes[randomIndex].image;
-        document.body.style.background = randomGradient;
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        const randomQuote = quotes[randomIndex];
+
+        quoteElement.innerText = randomQuote.text;
+        imageElement.src = randomQuote.image;
+
         quoteElement.style.opacity = '1';
-      }, 200);
+        imageElement.style.opacity = '1';
+      }, 150);
     }
 
     window.onload = generateQuote;
