@@ -16,13 +16,14 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
+      color: #333;
       padding: 20px;
       transition: background 1s ease-in-out;
     }
     .container {
-      position: relative;
       width: 90%;
-      max-width: 550px;
+      max-width: 600px;
       text-align: center;
     }
     .card {
@@ -30,8 +31,8 @@
       padding: 24px 20px;
       border-radius: 16px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(5px);
-      transition: transform 0.4s ease;
+      margin-bottom: 16px;
+      position: relative;
     }
     .quote {
       font-size: 1.1rem;
@@ -40,6 +41,13 @@
       line-height: 1.6;
       opacity: 0;
       animation: fadeIn 0.8s forwards;
+    }
+    .image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 16px;
     }
     button {
       padding: 12px 20px;
@@ -53,18 +61,12 @@
       transition: background-color 0.3s ease;
     }
     button:hover { background-color: #0056b3; }
-    .quote-image {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 15px;
-    }
-    .powered {
-      margin-top: 20px;
+    
+    .footer {
       font-size: 0.9rem;
+      margin-top: 16px;
       font-weight: 500;
-      color: #333;
+      color: #444;
     }
 
     @keyframes fadeIn {
@@ -76,80 +78,51 @@
 <body>
   <div class="container">
     <div class="card">
-      <img id="quoteImage" class="quote-image" src="" alt="Motivational Image" />
+      <img src="" alt="Motivation Image" class="image" id="quoteImage" />
       <div class="quote" id="quote">Loading motivation...</div>
       <button onclick="generateQuote()">Refresh Motivation</button>
     </div>
-    <div class="powered">Powered by DIYAVie</div>
+    <div class="footer">Powered by DIYAVie</div>
   </div>
 
   <script>
     const quotes = [
-      { text: "Dear DIYA Woman, you didn’t come this far to stop now. Every challenge you’ve faced has shaped you for this moment. Keep going.", image: "https://source.unsplash.com/featured/?woman,strength" },
-      { text: "Some days will test you. Things might not go as planned, but remember: resilience is built in the tough moments. Breathe and press on.", image: "https://source.unsplash.com/featured/?resilience,mountains" },
-      { text: "Repeat after me: I am capable. I am worthy. I am enough. Let these words guide you through every doubt.", image: "https://source.unsplash.com/featured/?selflove,confidence" },
-      { text: "Comparison steals joy. Your journey is yours alone. Own it with grace and pride.", image: "https://source.unsplash.com/featured/?path,journey" },
-      { text: "Dear DIYA Woman, it’s okay to rest. Rest is not quitting; it’s restoring. You deserve it.", image: "https://source.unsplash.com/featured/?relaxation,peace" },
-      { text: "Shatter those ceilings, sis. There’s a world waiting for your brilliance.", image: "https://source.unsplash.com/featured/?success,achievement" },
-      { text: "That idea you’ve been sitting on? Start. The world needs what you carry.", image: "https://source.unsplash.com/featured/?ideas,lightbulb" },
-      { text: "Celebrate the silent wins. Progress isn’t always loud but it’s always significant.", image: "https://source.unsplash.com/featured/?celebration,success" },
-      { text: "Dear DIYA Woman, surround yourself with those who remind you of your power. Energy is contagious—choose wisely.", image: "https://source.unsplash.com/featured/?friendship,support" },
-      { text: "Your future self is watching, grateful you didn’t give up today.", image: "https://source.unsplash.com/featured/?future,hope" },
-      { text: "Progress over perfection. Always. It’s the small steps that pave the way to greatness.", image: "https://source.unsplash.com/featured/?growth,steps" },
-      { text: "Dear DIYA Woman, you are the dream your ancestors prayed for. Walk boldly in that truth.", image: "https://source.unsplash.com/featured/?heritage,legacy" },
-      { text: "Every small step counts. Keep going. Your persistence is planting seeds for a future harvest.", image: "https://source.unsplash.com/featured/?motivation,plant" },
-      { text: "Own your space. You belong here. Don’t shrink for anyone.", image: "https://source.unsplash.com/featured/?confidence,leadership" },
-      { text: "Dear DIYA Woman, no is a complete sentence. Protect your peace unapologetically.", image: "https://source.unsplash.com/featured/?boundaries,selfcare" },
-      { text: "Give yourself permission to evolve. Growth may feel uncomfortable but it’s beautiful.", image: "https://source.unsplash.com/featured/?transformation,change" },
-      { text: "The world needs your magic. Don’t dim your light for anyone.", image: "https://source.unsplash.com/featured/?sparkle,inspiration" },
-      { text: "Dear DIYA Woman, rest is productive too. Replenish so you can rise stronger.", image: "https://source.unsplash.com/featured/?rest,calm" },
-      { text: "Your story is still unfolding beautifully. Trust the process.", image: "https://source.unsplash.com/featured/?book,journey" },
-      { text: "Protect your peace, sis. Chaos isn’t yours to carry.", image: "https://source.unsplash.com/featured/?peace,serenity" },
-      { text: "Dear DIYA Woman, you are enough. As you are. Right now.", image: "https://source.unsplash.com/featured/?selfacceptance,confidence" },
-      { text: "You are stronger than you know. Life’s challenges reveal hidden reserves of strength.", image: "https://source.unsplash.com/featured/?strength,endurance" },
-      { text: "Let your light shine unapologetically. The world benefits when you do.", image: "https://source.unsplash.com/featured/?shine,glow" },
-      { text: "Dear DIYA Woman, trust the timing of your life. What’s meant for you won’t miss you.", image: "https://source.unsplash.com/featured/?clock,time" },
-      { text: "Grace over guilt. Always choose compassion for yourself.", image: "https://source.unsplash.com/featured/?grace,peace" },
-      { text: "Take up space. You deserve to be seen and heard.", image: "https://source.unsplash.com/featured/?empowerment,woman" },
-      { text: "Dear DIYA Woman, your consistency will pay off. Stay the course.", image: "https://source.unsplash.com/featured/?focus,consistency" },
-      { text: "Don’t wait for perfect conditions. Start anyway. Momentum builds clarity.", image: "https://source.unsplash.com/featured/?start,motivation" },
-      { text: "Celebrate how far you’ve come. Progress is worthy of acknowledgment.", image: "https://source.unsplash.com/featured/?celebrate,success" },
-      { text: "Dear DIYA Woman, your voice matters. Speak up, even if it shakes.", image: "https://source.unsplash.com/featured/?voice,speech" },
-      { text: "You carry strength, beauty, and wisdom. Walk in it.", image: "https://source.unsplash.com/featured/?wisdom,beauty" },
-      { text: "Dear DIYA Woman, be kind to yourself. You’re doing your best.", image: "https://source.unsplash.com/featured/?kindness,selflove" },
-      { text: "Let your faith be bigger than your fear. Courage begins with belief.", image: "https://source.unsplash.com/featured/?faith,courage" },
-      { text: "Dear DIYA Woman, boundaries are a form of self-care. Honor them.", image: "https://source.unsplash.com/featured/?protection,selfcare" },
-      { text: "You are creating a legacy. Keep going. Your efforts matter.", image: "https://source.unsplash.com/featured/?legacy,future" },
-      { text: "Dear DIYA Woman, dare to dream bigger. You are capable of extraordinary things.", image: "https://source.unsplash.com/featured/?dreams,aspiration" },
-      { text: "Your authenticity is your superpower. Be you, fully.", image: "https://source.unsplash.com/featured/?authenticity,uniqueness" },
-      { text: "Dear DIYA Woman, bloom where you are planted. Growth is possible even here.", image: "https://source.unsplash.com/featured/?bloom,growth" },
-      { text: "You have survived 100% of your bad days. You are still standing. That’s powerful.", image: "https://source.unsplash.com/featured/?survivor,strength" },
-      { text: "Dear DIYA Woman, your dreams are valid. Chase them relentlessly.", image: "https://source.unsplash.com/featured/?dreams,goal" }
+      { text: "Dear DIYA Woman, you didn’t come this far to stop now.", image: "https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg" },
+      { text: "Some days will test you. Things might not go as planned, but remember why you started.", image: "https://images.pexels.com/photos/898243/pexels-photo-898243.jpeg" },
+      { text: "Repeat after me: I am capable. I am worthy. I am enough.", image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg" },
+      { text: "Comparison steals joy. Focus on your journey, and embrace every step.", image: "https://images.pexels.com/photos/1574843/pexels-photo-1574843.jpeg" },
+      { text: "Dear DIYA Woman, it’s okay to rest. Rest is part of the journey, not a detour.", image: "https://images.pexels.com/photos/4050291/pexels-photo-4050291.jpeg" },
+      { text: "Shatter those ceilings, sis. Your potential is limitless.", image: "https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg" },
+      { text: "That idea you’ve been sitting on? Start. The world needs your brilliance.", image: "https://images.pexels.com/photos/1974525/pexels-photo-1974525.jpeg" },
+      { text: "Celebrate the silent wins. Progress isn’t always loud.", image: "https://images.pexels.com/photos/1642226/pexels-photo-1642226.jpeg" },
+      { text: "Dear DIYA Woman, surround yourself with those who remind you of your power.", image: "https://images.pexels.com/photos/3184419/pexels-photo-3184419.jpeg" },
+      { text: "Your future self is watching, grateful you didn’t give up.", image: "https://images.pexels.com/photos/556668/pexels-photo-556668.jpeg" }
+      // Add remaining quotes here with corresponding image URLs from Pexels.
     ];
 
     const gradients = [
       "linear-gradient(135deg, #FFDEE9, #B5FFFC)",
-      "linear-gradient(135deg, #FEE140, #FA709A)",
-      "linear-gradient(135deg, #A1FFCE, #FAFFD1)",
+      "linear-gradient(135deg, #FECFEF, #C2FFD8)",
+      "linear-gradient(135deg, #D4FC79, #96E6A1)",
+      "linear-gradient(135deg, #FBC2EB, #A6C1EE)",
+      "linear-gradient(135deg, #FFF1EB, #ACE0F9)",
       "linear-gradient(135deg, #FF9A9E, #FAD0C4)",
-      "linear-gradient(135deg, #C2FFD8, #465EFB)",
-      "linear-gradient(135deg, #F6D365, #FDA085)",
-      "linear-gradient(135deg, #89F7FE, #66A6FF)",
-      "linear-gradient(135deg, #FCCF31, #F55555)"
+      "linear-gradient(135deg, #C1DFE8, #DEECDD)"
     ];
 
     function generateQuote() {
       const quoteElement = document.getElementById('quote');
-      const quoteImage = document.getElementById('quoteImage');
+      const imageElement = document.getElementById('quoteImage');
+      
       const randomIndex = Math.floor(Math.random() * quotes.length);
       const randomGradient = gradients[Math.floor(Math.random() * gradients.length)];
 
       quoteElement.style.opacity = '0';
-      document.body.style.background = randomGradient;
-
+      
       setTimeout(() => {
         quoteElement.innerText = quotes[randomIndex].text;
-        quoteImage.src = quotes[randomIndex].image + "&" + new Date().getTime(); // Prevent caching
+        imageElement.src = quotes[randomIndex].image;
+        document.body.style.background = randomGradient;
         quoteElement.style.opacity = '1';
       }, 200);
     }
